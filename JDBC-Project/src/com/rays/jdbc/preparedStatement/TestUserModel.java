@@ -1,27 +1,82 @@
-package com.rays.jdbc.preparedStatement;
+package com.rays.preparedStatement;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		testAdd();	
+		// testAdd();
+		//TestDelete();
+		//TestUpdate();
+		//testbylogin();
+		testbyAuthenticate();
 	}
- public static  void testAdd() throws Exception{
-	 
-	 SimpleDateFormat sdf = new SimpleDateFormat("dd-yyyy-mm");
-	 
-	 UserModel Model  = new UserModel();
-	 
-	 UserBean Bean = new UserBean();
-	 
-	 Bean.setFirstName("Danny");
-     Bean.setLastName("D");
-     Bean.setLogin("danny0123");
-	 Bean.setPassword("123456789");
-	 Bean.setDob(sdf.parse("13-12-2001"));
-	 
-	 Model.add(Bean);
- }
-}
+
+	public static void testAdd() throws Exception {
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-yyyy-mm");
+
+		UserModel Model = new UserModel();
+
+		UserBean Bean = new UserBean();
+
+		Bean.setFirstName("Danny");
+		Bean.setLastName("D");
+		Bean.setLogin("danny0123");
+		Bean.setPassword("123456789");
+		Bean.setDob(sdf.parse("13-12-2001"));
+
+		Model.add(Bean);
+	}
+
+	public static void TestDelete() throws Exception {
+
+		UserModel model = new UserModel();
+		UserBean bean = new UserBean();
+
+		bean.setId(1);
+		model.delete(bean);
+	}
+	
+	public static void TestUpdate() throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+		UserBean bean = new UserBean();
+		UserModel model = new UserModel();
+		
+		bean.setId(2);
+		bean.setFirstName("DANNY");
+		bean.setLastName("D");
+		bean.setLogin("danny@123gmail.com");
+		bean.setPassword("123456789");
+		bean.setDob(sdf.parse("12-2003-12"));
+		
+		model.update(bean);
+	}
+	public static void testbylogin() throws Exception {
+	
+		UserModel model = new UserModel();
+	
+		UserBean existsbean = model.findbylogin("danny@gmail.com");
+		
+		if(existsbean != null) {
+			System.out.println("login id already exist");
+		}else {
+			System.out.println("login not found");
+		}
+	}
+	public static void  testbyAuthenticate() throws Exception {
+		
+		UserModel model = new UserModel();
+		
+		UserBean existsbean =  model.Authenticate("ankitrawat@gmail.com","123456789");
+		
+		if(existsbean != null) {
+			System.out.println("Login sucessfull");
+		}else {
+			System.out.println("login Failed");
+		}
+	
+	}
+	}

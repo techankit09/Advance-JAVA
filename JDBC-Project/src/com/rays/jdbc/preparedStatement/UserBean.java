@@ -1,4 +1,4 @@
-package com.rays.jdbc.preparedStatement;
+package com.rays.preparedStatement;
 
 import java.util.Date;
 
