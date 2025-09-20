@@ -6,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-
-
 public class UserModel {
 
 	public int nextPk() throws Exception {
@@ -34,6 +32,12 @@ public class UserModel {
 	}
 
 	public void add(UserBean bean) throws Exception {
+
+		UserBean existsbean = findbylogin(bean.getLogin());
+
+		if (existsbean != null) {
+			throw new Exception("Login id already exist");
+		}
 
 		Class.forName("com.mysql.cj.jdbc.Driver");
 
@@ -69,85 +73,101 @@ public class UserModel {
 		System.out.println("Data delete sucessfully:" + i);
 		c.close();
 	}
- // update record//
-   
+	// update record//
+
 	public void update(UserBean bean) throws Exception {
-		
+
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-	Connection c =	DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
-	
-	PreparedStatement pstmt = c.prepareStatement("update st_user set firstname = ?,lastname = ?, login = ?, password = ?,dob = ? where id =?");
-	
-	pstmt.setString(1,bean.getFirstName());
-	pstmt.setString(2,bean.getLastName());
-	pstmt.setString(3,bean.getLogin());
-	pstmt.setString(4,bean.getPassword());
-	pstmt.setDate(5, new java.sql.Date(bean.getDob().getTime()));
-	pstmt.setInt(6,bean.getId());
-	
-	int i = pstmt.executeUpdate();
-	System.out.println("Data Updated Sucessfully:"+i);
-	c.close();
+
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
+
+		PreparedStatement pstmt = c.prepareStatement(
+				"update st_user set firstname = ?,lastname = ?, login = ?, password = ?,dob = ? where id =?");
+
+		pstmt.setString(1, bean.getFirstName());
+		pstmt.setString(2, bean.getLastName());
+		pstmt.setString(3, bean.getLogin());
+		pstmt.setString(4, bean.getPassword());
+		pstmt.setDate(5, new java.sql.Date(bean.getDob().getTime()));
+		pstmt.setInt(6, bean.getId());
+
+		int i = pstmt.executeUpdate();
+		System.out.println("Data Updated Sucessfully:" + i);
+		c.close();
 
 	}
-	//findbyLogin//
-	
+	// findbyLogin//
+
 	public UserBean findbylogin(String login) throws Exception {
-		
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
- Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
- 
- PreparedStatement pstmt = c.prepareStatement("select * from st_user where login = ?");
- 
- pstmt.setString(1, login);
- 
- ResultSet rs = pstmt.executeQuery();
- 
- UserBean bean = null;
- 
- while(rs.next()) {
-	 
-	 bean = new UserBean();
-	 
-	 bean.setLogin(rs.getString(4));
- }
-  return bean;
-	}
-	
-	//authentication by login password//
-	
-	public UserBean Authenticate(String login, String password) throws Exception {
-		
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		
-	Connection c =	DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
-		
-	PreparedStatement pstmt = c.prepareStatement("select * from st_user where login = ? and password = ?");
-	
-	pstmt.setString(1, login);
-	pstmt.setString(2, password);
-	
-	ResultSet rs = pstmt.executeQuery();
-			
-			UserBean bean = null;
-			while(rs.next()) {
-				
-				bean = new UserBean();
-				bean.setLogin(rs.getString(4));
-				bean.setPassword(rs.getString(5));
-			}
-	return bean;
-	
-	}
-	
-	
-	
-	
-	
-	
-	
-	
 
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
+
+		PreparedStatement pstmt = c.prepareStatement("select * from st_user where login = ?");
+
+		pstmt.setString(1, login);
+
+		ResultSet rs = pstmt.executeQuery();
+
+		UserBean bean = null;
+
+		while (rs.next()) {
+
+			bean = new UserBean();
+
+			bean.setLogin(rs.getString(4));
+		}
+		return bean;
+	}
+
+	// authentication by login password//
+
+	public UserBean Authenticate(String login, String password) throws Exception {
+
+		Class.forName("com.mysql.cj.jdbc.Driver");
+
+		Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
+
+		PreparedStatement pstmt = c.prepareStatement("select * from st_user where login = ? and password = ?");
+
+		pstmt.setString(1, login);
+		pstmt.setString(2, password);
+
+		ResultSet rs = pstmt.executeQuery();
+
+		UserBean bean = null;
+		while (rs.next()) {
+
+			bean = new UserBean();
+			bean.setLogin(rs.getString(4));
+			bean.setPassword(rs.getString(5));
+		}
+		return bean;
+	}
+	// forget password//
+
+	public void Changepassword(String oldpassword, String Newpassword, String login) throws Exception {
+		
+		UserBean bean = findbylogin(login);
+	
+		if (bean.getPassword().equals(oldpassword)) {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+	Connection c = 	DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","root");
+		PreparedStatement pstmt = c.prepareStatement("update st_user set password = ? where id = ?");
+		
+		pstmt.setString(1, Newpassword);
+		pstmt.setString(2, login);
+		
+		int i = pstmt.executeUpdate();
+		System.out.println("Password changed sucessfully" + i);
+		c.close();
+		
+		}  else {
+			throw new Exception("password changed failed");
+		}
+	}
 }
+
+

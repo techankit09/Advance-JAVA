@@ -7,11 +7,11 @@ public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		// testAdd();
+		testAdd();
 		//TestDelete();
 		//TestUpdate();
 		//testbylogin();
-		testbyAuthenticate();
+		//testbyAuthenticate();
 	}
 
 	public static void testAdd() throws Exception {
@@ -24,7 +24,7 @@ public class TestUserModel {
 
 		Bean.setFirstName("Danny");
 		Bean.setLastName("D");
-		Bean.setLogin("danny0123");
+		Bean.setLogin("danny@123gmail.com");
 		Bean.setPassword("123456789");
 		Bean.setDob(sdf.parse("13-12-2001"));
 
@@ -70,13 +70,34 @@ public class TestUserModel {
 		
 		UserModel model = new UserModel();
 		
-		UserBean existsbean =  model.Authenticate("ankitrawat@gmail.com","123456789");
+		UserBean existsbean =  model.Authenticate("lucky009@gmail.com","Lucky123");
 		
 		if(existsbean != null) {
 			System.out.println("Login sucessfull");
 		}else {
 			System.out.println("login Failed");
 		}
+	  }
 	
+	public static void testChangepassword() throws Exception {
+		
+		UserModel model = new UserModel();
+		
+		model.Changepassword("123456789", "987654321"," ankitrawat123@gmail.com");
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
