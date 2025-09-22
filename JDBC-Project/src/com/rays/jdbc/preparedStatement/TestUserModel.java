@@ -2,16 +2,20 @@ package com.rays.preparedStatement;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.List;
 
 public class TestUserModel {
 
 	public static void main(String[] args) throws Exception {
 
-		testAdd();
+		//testAdd();
 		//TestDelete();
 		//TestUpdate();
 		//testbylogin();
 		//testbyAuthenticate();
+		//testbyid();
+		testsearch();
 	}
 
 	public static void testAdd() throws Exception {
@@ -87,17 +91,38 @@ public class TestUserModel {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	public static void testbyid() throws Exception {
+		
+		UserModel model = new UserModel();
+		
+		UserBean bean = model.findbyId(2);
+		
+		if(bean != null) {
+			System.out.println("login id found");
+		}else {
+			System.out.println("login id not found");
 	}
+	}
+
+ public static void testsearch() throws Exception {
+	 
+	    UserModel model = new UserModel();
+	     List list = model.search(null);
+	     
+	     Iterator<UserBean> it = list.iterator();
+	     
+	     while(it.hasNext()) {
+	    	 
+	    UserBean bean = it.next();
+	    System.out.print(bean.getId());
+		System.out.println("\t"+bean.getFirstName());
+		System.out.println("\t"+bean.getLastName());
+		System.out.println("\t"+bean.getLogin());
+		System.out.println("\t"+bean.getPassword());
+		System.out.println("\t"+bean.getDob());
+	}
+	     }
+     }
+
+	
+	
