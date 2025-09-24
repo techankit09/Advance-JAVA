@@ -59,4 +59,9 @@ public class UserBean {
 		this.dob = dob;
 	}
 
+	public void setDob(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -105,15 +105,23 @@ public class TestUserModel {
 	}
 
  public static void testsearch() throws Exception {
-	 
+	
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	    UserModel model = new UserModel();
-	     List list = model.search(null);
+	    UserBean bean = new UserBean();
+	   // bean.setFirstName("A");
+	    //bean.setLastName("R");
+	   // bean.setLogin("anshul009@gmail.com");
+	    bean.setDob(sdf.parse("2001-12-13"));
+	    
+	    //bean.setPassword("L");
+	     List list = model.search(bean);
 	     
 	     Iterator<UserBean> it = list.iterator();
 	     
 	     while(it.hasNext()) {
 	    	 
-	    UserBean bean = it.next();
+	     bean = it.next();
 	    System.out.print(bean.getId());
 		System.out.println("\t"+bean.getFirstName());
 		System.out.println("\t"+bean.getLastName());
