@@ -5,11 +5,101 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		background-image: url('9.jpg');
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+		font-family: Arial, sans-serif;
+	}
+
+	form {
+		background-color: rgba(255, 255, 255, 0.9);
+		padding: 20px;
+		border-radius: 10px;
+		box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+		width: 400px;
+	}
+
+	table {
+		width: 100%;
+	}
+
+	th {
+		text-align: left;
+		padding: 8px;
+	}
+
+	td {
+		padding: 8px;
+	}
+
+	h1 {
+		color: #333;
+	}
+	.centered-container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-height: 100vh;
+	}
+</style>
+
 </head>
 <body>
+
+	<%
+		String errorMsg = (String) request.getAttribute("errorMsg");
+		String successMsg = (String) request.getAttribute("successMsg");
+	%>
+
 	<%@ include file="Header.jsp"%>
 	<div align="center">
 		<h1>Login View</h1>
+
+		<%
+			if (errorMsg != null) {
+		%>
+
+		<h2 style="color: red"><%=errorMsg%></h2>
+
+		<%
+			}
+		%>
+
+		<%
+			if (successMsg != null) {
+		%>
+
+		<h2 style="color: green"><%=successMsg%></h2>
+
+		<%
+			}
+		%>
+
+		<form action="LoginCtl" method="post">
+			<table>
+				<tr>
+					<th>Login</th>
+					<td><input type="email" name="login" value=""
+						placeholder="enter your login"></td>
+				</tr>
+				<tr>
+					<th>Password</th>
+					<td><input type="password" name="password" value=""
+						placeholder="enter your password"></td>
+				</tr>
+				<tr>
+					<th></th>
+					<td><input type="submit" name="operation" value="signIn"></td>
+				</tr>
+			</table>
+		</form>
+
 	</div>
 	<%@ include file="Footer.jsp"%>
 </body>

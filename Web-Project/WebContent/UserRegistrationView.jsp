@@ -10,7 +10,7 @@
 	body {
 		margin: 0;
 		padding: 0;
-		background-image: url('8.jpg');
+		background-image: url('9.jpg');
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center;
