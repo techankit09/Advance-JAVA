@@ -4,8 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Login Here</title>
-
+<title>Change Password</title>
 <style>
 	body {
 		margin: 0;
@@ -48,7 +47,6 @@
 		min-height: 100vh;
 	}
 </style>
-
 </head>
 <body>
 
@@ -56,55 +54,55 @@
 		String errorMsg = (String) request.getAttribute("errorMsg");
 		String successMsg = (String) request.getAttribute("successMsg");
 	%>
+	<%@  include file="Header.jsp"%>
 
-	<%@ include file="Header.jsp"%>
-	<div align="center">
-		<h1>Login View</h1>
+	<div>
+		<form action="ChangePasswordCtl" method="post">
+			<%
+				if (errorMsg != null) {
+			%>
+			<h3 style="color: red;">
+				<%=errorMsg%>
+				<%
+					}
+				%>
+				
+				<%
+				if (successMsg != null) {
+			%>
+			<h3 style="color: Green;">
+				<%=successMsg%>
+				<%
+					}
+				%>
+			</h3>
 
-		<%
-			if (errorMsg != null) {
-		%>
-
-		<h2 style="color: red"><%=errorMsg%></h2>
-
-		<%
-			}
-		%>
-
-		<%
-			if (successMsg != null) {
-		%>
-
-		<h2 style="color: green"><%=successMsg%></h2>
-
-		<%
-			}
-		%>
-
-		<form action="LoginCtl" method="post">
 			<table>
 				<tr>
 					<th>Login</th>
 					<td><input type="email" name="login" value=""
-						placeholder="enter your login"></td>
+						placeholder="Enter Your Email"></td>
 				</tr>
+
 				<tr>
-					<th>Password</th>
-					<td><input type="password" name="password" value=""
-						placeholder="enter your password"></td>
+					<th>Oldpassword</th>
+					<td><input type="password" name="oldPassword" value=""
+						placeholder="Enter Your OldPassword"></td>
 				</tr>
+
+				<tr>
+					<th>NewPassword</th>
+					<td><input type="password" name="newPassword" value=""
+						placeholder="Enter Your NewPassword"></td>
+				</tr>
+
 				<tr>
 					<th></th>
-					<td><input type="submit" name="operation" value="signIn"></td>
-				</tr>
-				<tr>
-					<th></th>
-					<td><input type="submit" name="operation" value="ForgetPassword"></td>
+					<td><input type="submit" name="operation" value="Save"></td>
 				</tr>
 			</table>
-		</form>
 
+		</form>
 	</div>
-	<%@ include file="Footer.jsp"%>
 </body>
 </html>

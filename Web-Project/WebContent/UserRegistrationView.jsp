@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>User Registration</title>
+<title>Register Here</title>
 
 <style>
 	body {

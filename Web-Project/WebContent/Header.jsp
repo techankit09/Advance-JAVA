@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Header</title>
 </head>
 <body>
 	<%
@@ -27,7 +27,10 @@
 	<%
 		if (user != null) {
 	%>
-	<a href="LoginCtl?operation=logout">Logout</a>
+	<a href="UserCtl">Add User</a> |
+	<a href="UserListCtl">User List</a> |
+	<a href="LoginCtl?operation=logout">Logout</a> |
+	<a href="ChangePasswordCtl">ChangePassword</a>
 	<%
 		} else {
 	%>
